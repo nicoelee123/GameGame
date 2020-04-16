@@ -81,6 +81,7 @@ var Game = (function() {
 
      function ModeListener() {
           if(Mode == "Game") {
+               Sound.getSound(bgMusic1).play();
                $("#startBtn").fadeOut(200);
                $('#startScreen1').fadeOut(1000);
                $('#startScreen2').fadeOut(1000);
