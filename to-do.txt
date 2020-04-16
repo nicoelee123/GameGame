@@ -1,0 +1,10 @@
+- dialogue box face showing
+- inventory / items
+- document reading for dialogue d
+
+I need a way for the game to know what level we are on
+
+Game.levelListener();
+     - game needs to have a private property "level"
+     - when mainScript sees that game is at a certain level,
+          it sets the player, furniture, doors, and items at a certain state

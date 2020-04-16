@@ -1,0 +1,33 @@
+Player singular frame 31 x 45
+     - total spritesheet should be a 3 frame x 4 frame sheet
+     [standing, left foot forward, right foot forward]
+     [facing left, left foot forward, right food forward]
+     [facing right, left foot forward, right foot forward]
+     [facing up (back facing the audience), left foot forward, right foot forward]
+
+With the player this size, make other furniture sizes according to scale;
+
+Start Screen canvas is 600 x 450 pixels, background animations are allowed
+
+Game canvas is 600 pixels wide but 1000 pixels long. The player will go
+up and down and the screen will follow the player.
+     - for background, we need floor tiling on the ground
+     - walls
+     - each of these repeatable if possible
+
+The setting of the game is in a laboratory. My guess is mainly a white
+sort of theme. Clean and tidy. Colorful chemicals. Lab coats. etc. etc.
+
+There are other things like "furniture" which is scientific instruments, chairs,
+tables, microscopes, chemicals, coat hanger, etc. etc.
+Each of these furnitures will have an interactable aspect to them. When the player
+presses 'e', a zoomed-in image of the furniture will appear on screen, allowing the
+player to inspect a little closer. this is for looking for clues, clicking on items,
+finding patterns, etc. The specifics of what each furniture will do is tbd so I wouldn't
+start on that yet.
+
+For now, the game needs...
+     - player spritesheet
+     - game background
+          - repeated floor tiling
+          - walls (with decorations too)

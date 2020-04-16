@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <link rel="stylesheet" type="text/css" href="cssstyles.css">
+          <title>Modular Game Designing</title>
+     </head>
+
+     <body>
+
+          <canvas id="startScreen1" width="600" height="450"></canvas>
+          <canvas id="startScreen2" width="600" height="450"></canvas>
+          <button id="startBtn">Start</button>
+
+          <canvas id="floor" width="600" height="1200"></canvas>
+          <canvas id="layer1" width="600" height="1200"></canvas>
+          <canvas id="layer2" width="600" height="1200"></canvas>
+          <canvas id="layer3" width="600" height="1200"></canvas>
+
+          <div id="wordsContainer">
+               <div id="textBox">
+                    <div id="words"></div>
+               </div>
+          </div>
+
+          <div id="faceContainer">
+               <div id="face"></div>
+          </div>
+
+          <div id="inventoryContainer">
+               <div id="inventory">
+                    <div data-boxNumber="box1" class="item1 item"></div>
+                    <div data-boxNumber="box2" class="item2 item"></div>
+                    <div data-boxNumber="box3" class="item3 item"></div>
+                    <div data-boxNumber="box4" class="item4 item"></div>
+                    <div data-boxNumber="box5" class="item5 item"></div>
+                    <div data-boxNumber="box6" class="item6 item"></div>
+                    <div data-boxNumber="box7" class="item7 item"></div>
+                    <div data-boxNumber="box8" class="item8 item"></div>
+                    <div data-boxNumber="box9" class="item9 item"></div>
+                    <div data-boxNumber="box10" class="item10 item"></div>
+
+               </div>
+          </div>
+
+          <script src="jquery-3.4.1.js"></script>
+          <script src="Engine.js"></script>
+          <script src="Furniture.js"></script>
+          <script src="Controller.js"></script>
+          <script src="StartScreen.js"></script>
+          <script src="Door.js"></script>
+          <script src="Wall.js"></script>
+          <script src="Item.js"></script>
+          <script src="Player.js"></script>
+          <script src="Levels.js"></script>
+          <script src="Game.js"></script>
+          <script src="Dialogue.js"></script>
+          <script src="Words.js"></script>
+          <script src="Display.js"></script>
+          <script src="mainScript.js"></script>
+
+     </body>
+</html>

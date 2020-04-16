@@ -1,0 +1,204 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+
+html {
+     scroll-behavior: auto;
+}
+
+body {
+     background-image: url("natureBackground.jpg");
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: cover;
+}
+/* FIRST LAYER */
+#floor {
+     background: lightblue;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+}
+
+#layer1 {
+     z-index: 1;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+}
+
+/* SECOND LAYER */
+#layer2 {
+     z-index: 2;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+}
+
+/* THIRD LAYER */
+#layer3 {
+     z-index: 3;
+     position: relative;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+}
+
+#startScreen1 {
+     background: pink;
+     display: none;
+     z-index: 1;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+}
+
+#startScreen2 {
+     display: none;
+     z-index: 2;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+}
+
+#startBtn {
+	background:linear-gradient(to bottom, #44c767 5%, #a0bd2a 100%);
+	background-color:#44c767;
+	border-radius:7px;
+	display:none;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:16px 56px;
+	text-decoration:none;
+     position: absolute;
+     left: 50%;
+     margin-left: -80px;
+     top: 350px;
+     z-index:3;
+}
+#startBtn:hover {
+	background:linear-gradient(to bottom, #a0bd2a 5%, #44c767 100%);
+	background-color:#a0bd2a;
+}
+#startBtn:active {
+	position:absolute;
+	top:355px;
+}
+
+#textBox {
+     word-wrap: normal;
+     position: fixed;
+     bottom: 0;
+     left: 50%;
+     margin-left: -300px;
+     border: solid grey 2px;
+     display: none;
+     z-index:3;
+     color: white;
+     background: black;
+     width: 450px;
+     height: 150px;
+}
+
+#faceContainer {
+     display: none;
+     width: 150px;
+     height: 150px;
+     background: orange;
+     position: fixed;
+     bottom:0;
+     left: 50%;
+     margin-left: 150px;
+     z-index: 3;
+}
+
+#inventoryContainer {
+     display: none;
+     width: 150px;
+     height: 430px;
+     background: olive;
+     position: fixed;
+     top: 0;
+     left: 50%;
+     margin-left: 300px;
+     z-index: 3;
+}
+
+#inventory {
+     display: grid;
+     grid-template-columns: 60px 60px auto;
+     grid-template-rows: 60px 60px 60px 60px 60px auto;
+     grid-template-areas:
+          "item1 item2 ."
+          "item3 item4 ."
+          "item5 item6 ."
+          "item7 item8 ."
+          "item9 item10 .";
+}
+
+.item {
+     background: white;
+     border: solid black 1px;
+     margin-left: 2px;
+     margin-top: 2px;
+}
+
+.item:hover {
+     background: grey;
+}
+
+.item:active {
+     background:orange;
+}
+
+.selected {
+     background: orange;
+}
+
+.item1 {
+     grid-area: item1;
+}
+
+.item2 {
+     grid-area: item2;
+}
+
+.item3 {
+     grid-area: item3;
+}
+
+.item4 {
+     grid-area: item4;
+}
+
+.item5 {
+     grid-area: item5;
+}
+
+.item6 {
+     grid-area: item6;
+}
+
+.item7 {
+     grid-area: item7;
+}
+
+.item8 {
+     grid-area: item8;
+}
+
+.item9 {
+     grid-area: item9;
+}
+
+.item10 {
+     grid-area: item10;
+}
