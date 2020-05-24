@@ -8,6 +8,27 @@ var Game = (function() {
      Mode = "StartScreen";
      Level = 0;
 
+     furnitureList = [];
+     doorList = [];
+     wallList = [];
+     selectedItems = [];
+     itemList = [];
+
+     dialogue = [];
+
+     inventoryTracker = {
+          1: null,
+          2: null,
+          3: null,
+          4: null,
+          5: null,
+          6: null,
+          7: null,
+          8: null,
+          9: null,
+          10: null
+     }
+
 ///////////////////////////////////////////////////////////////////////////////
 
 /*===========================================================*/
@@ -18,6 +39,7 @@ var Game = (function() {
           Engine.startClock();
           Display.wipeAll();
           Display.furnitureAnimationHandler();
+          Display.itemAnimationHandler();
           Player.trackPrevLocation();
           Controller.playerMovementHandler();
           Display.placeAllDoors();
@@ -28,6 +50,7 @@ var Game = (function() {
           Display.scrollMaster();
           doorHandler();
           Display.wordsHandler();
+          Display.showInvItems();
      }
 /*=============================================================*/
 
@@ -103,8 +126,11 @@ var Game = (function() {
 
      function LevelListener(input) {
           switch(input) {
-               case 0:
-                    Levels.One();
+               case 1:
+                    if(Levels.getLevelCounter() != Game.getLevel()) {
+                         Levels.setLevelCounter(Levels.getLevelCounter() + 1);
+                         Levels.One();
+                    }
                     break;
           }
      }
@@ -143,7 +169,7 @@ var Game = (function() {
           let topWallBuffer = 0;
           let leftWallBuffer = 0;
           let rightWallBuffer = 0;
-          let bottomWallBuffer = 150;
+          let bottomWallBuffer = 0;
           /*
                Wall boundaries of the room
           */
@@ -188,6 +214,14 @@ var Game = (function() {
                     Player.setCenterY(Player.getPrevY());
                }
           }
+
+          // Item collision
+          for(item of itemList) {
+               if(detectPlayerCollision(item)) {
+                    Player.setCenterX(Player.getPrevX());
+                    Player.setCenterY(Player.getPrevY());
+               }
+          }
      }
 
      /*
@@ -221,19 +255,60 @@ var Game = (function() {
                else if((playerCenterX > furniture.getCenterX() + furniture.getWidth()) && (playerCenterX < furniture.getCenterX() + furniture.getWidth() + howClose)) {
                     return "RIGHT-ZONE";
                }
+          } else {
+               return null;
+          }
+     }
+
+     function itemZone(item) {
+          let howClose = 15;
+          let playerCenterX = Player.getCenterX() + (Player.getWidth()/2);
+          let playerCenterY = Player.getCenterY() + (Player.getHeight()/2);
+          //up-down column
+          if((playerCenterX > item.getCenterX()) && (playerCenterX < (item.getCenterX() + item.getWidth()))) {
+               //up zone
+               if((playerCenterY < item.getCenterY()) && (playerCenterY > item.getCenterY() - howClose*2)) {
+                    return "TOP-ZONE";
+               }
+               //down zone
+               if((playerCenterY > (item.getCenterY() + item.getHeight())) && (playerCenterY < item.getCenterY() + item.getHeight() + howClose/2)) {
+                    return "BOTTOM-ZONE";
+               }
+          }
+          //left-right row
+          else if((playerCenterY > item.getCenterY()) && (playerCenterY < item.getCenterY() + item.getHeight())) {
+               //left zone
+               if((playerCenterX < item.getCenterX()) && (playerCenterX > item.getCenterX() - howClose)) {
+                    return "LEFT-ZONE";
+               }
+               //right zone
+               else if((playerCenterX > item.getCenterX() + item.getWidth()) && (playerCenterX < item.getCenterX() + item.getWidth() + howClose)) {
+                    return "RIGHT-ZONE";
+               }
+          } else {
+               return null;
           }
      }
 
      function playerCurrentInteractSetter() {
 
-          if(Controller.furnitureInteractTester() == false) {
+          if((Controller.furnitureInteractTester() == null) && (Controller.itemInteractTester() == null)) {
+
                Player.setCurrentlyInteractingWith(null);
-          } else if(Controller.furnitureInteractTester() != false) {
+
+          } else if(Controller.furnitureInteractTester() != null) {
+
                Player.setCurrentlyInteractingWith(Controller.furnitureInteractTester());
+
+          } else if(Controller.itemInteractTester() != null) {
+
+               Player.setCurrentlyInteractingWith(Controller.itemInteractTester());
           }
 
           if(Player.getCurrentlyInteractingWith() == null) {
+
                Player.setInteract(false);
+
           }
      }
 
@@ -254,7 +329,26 @@ var Game = (function() {
 
                Display.furnitureInteract(Player.getCurrentlyInteractingWith());
 
+          } else if(itemList.includes(Player.getCurrentlyInteractingWith())) {
+               console.log("item");
+               //deletes item from screen
+               currentItem = Player.getCurrentlyInteractingWith();
+               itemList.splice(itemList.indexOf(currentItem.getImage().src));
+
+               //places into inventory
+               emptySlot = 1;
+               for(key in inventoryTracker) {
+                    if (inventoryTracker[key] == null) {
+                         emptySlot = key;
+                         break;
+                    }
+               }
+               inventoryTracker[emptySlot] = Player.getCurrentlyInteractingWith();
           }
+     }
+
+     function getInventoryTracker() {
+          return inventoryTracker;
      }
 
      function getDialogue() {
@@ -279,6 +373,8 @@ var Game = (function() {
           initiateBoundaries : initiateBoundaries,
           playerInteractionHandler : playerInteractionHandler,
           furnitureZone : furnitureZone,
+          getInventoryTracker : getInventoryTracker,
+          itemZone : itemZone,
           setMode : setMode,
           getMode : getMode,
           getDialogue : getDialogue,

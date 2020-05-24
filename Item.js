@@ -1,29 +1,102 @@
-Item = function(imgName, invImg, centerX, centerY, canvasScale, invScale) {
+Item = function(imgName, invImg, frameWidth, frameHeight, centerX, centerY, invScale) {
 
      this.image = new Image();
      this.image.src = imgName;
 
      this.selected = false;
 
-     this.invSpace = "";
+     this.width = frameWidth;
+     this.height = frameHeight;
 
      this.invImg = new Image();
-     this.invImg.src = ingImg;
+     this.invImg.src = invImg;
 
      this.centerX = centerX;
      this.centerY = centerY;
 
-     this.canvasScale = canvasScale;
      this.invScale = invScale;
 
-     this.getInvSpace = function() {
-          return this.invSpace;
+     this.frameWidth = frameWidth;
+     this.frameHeight = frameHeight;
+
+     this.invWidth = invScale * frameWidth;
+     this.invHeight = invScale * frameHeight;
+
+     this.frameOrder = [];
+
+     this.frameStep = 0;
+
+     this.counter = 0;
+     this.delayCounter = 0;
+
+     this.delay = 0;
+
+     this.currentlyAnimating = false;
+
+     this.getWidth = function() {
+          return this.width;
      }
 
-     this.setInvSpace = function(string) {
-          this.invSpace = string;
+     this.getHeight = function() {
+          return this.height;
      }
-     
+
+     this.getCounter = function() {
+          return this.counter;
+     }
+
+     this.setCounter = function(int) {
+          this.counter = int;
+     }
+
+     this.getFrameWidth = function() {
+          return this.frameWidth;
+     }
+
+     this.getFrameHeight = function() {
+          return this.frameHeight;
+     }
+
+     this.getDelayCounter = function() {
+          return this.delayCounter;
+     }
+
+     this.setDelayCounter =  function(number) {
+          this.delayCounter = number;
+     }
+
+     this.getCurrentlyAnimating = function() {
+          return this.currentlyAnimating;
+     }
+
+     this.setCurrentlyAnimating = function(d) {
+          this.currentlyAnimating = d;
+     }
+
+     this.getAnimationDelay = function() {
+          return this.animationDelay;
+     }
+
+     this.setAnimation = function(list, frameStep, delay) {
+          for(num of list) {
+               this.frameOrder.push(num);
+          }
+          this.frameStep = frameStep;
+          this.delay = delay;
+     }
+
+     this.getDelay = function () {
+          return this.delay;
+     }
+
+     this.getFrameStep = function() {
+          return this.frameStep;
+     }
+
+     this.getFrameOrder = function() {
+          return this.frameOrder;
+     }
+
      this.getSelected = function() {
           return this.selected;
      }
@@ -33,7 +106,7 @@ Item = function(imgName, invImg, centerX, centerY, canvasScale, invScale) {
      }
 
      this.getImage = function() {
-          return this.image();
+          return this.image;
      }
 
      this.getInvImg = function() {
@@ -46,10 +119,6 @@ Item = function(imgName, invImg, centerX, centerY, canvasScale, invScale) {
 
      this.getCenterY = function() {
           return this.centerY;
-     }
-
-     this.getCanvasScale = function() {
-          return this.canvasScale;
      }
 
      this.getInvScale = function() {

@@ -32,15 +32,40 @@ var Display = (function () {
           window.scroll(0, Player.getCenterY() - viewportHeight/2 + 140);
      }
 
+     function showInvItems() {
+          itemsDict = Game.getInventoryTracker();
+          for(key in itemsDict) {
+               if(itemsDict[key] == null) {
+                    continue;
+               } else {
+                    currentItem = itemsDict[key];
+                    document.getElementsByClassName("item")[key-1].style.backgroundImage = "url(" + currentItem.getInvImg().src + ")";
+               }
+          }
+     }
+
                /* =============================
                     BASE LAYER
                ============================= */
 
+     canvasFloor = document.getElementById("floor");
+     ctxFloor = canvasFloor.getContext("2d");
+
+     canvasWidth = 600;
+     canvasHeight = 1000;
+
+     function setBackground(imgName) {
+          document.getElementById("floor").style.backgroundImage = "url(" + imgName + ")";
+          console.log("ran2");
+     }
+
+               /*===============================
+                    LAYER ONE
+               =================================*/
+
+
      canvasLayer1 = document.getElementById("layer1");
      ctxLayer1 = canvasLayer1.getContext("2d");
-
-     canvasWidth = canvasLayer1.width;
-     canvasHeight = canvasLayer1.height;
 
      counter = 0;
 
@@ -72,6 +97,48 @@ var Display = (function () {
      function wipeAll() {
           for(i = 0; i < 4; i++) {
                wipe(i);
+          }
+     }
+
+     function placeItem(item) {
+          ctxLayer1.drawImage(item.getImage(), 0, 0, item.getFrameWidth(), item.getFrameHeight(),
+                         item.getCenterX(), item.getCenterY(),
+                         item.getFrameWidth(), item.getFrameHeight());
+     }
+
+     function itemNextFrame() {
+
+          ctxLayer1.clearRect(item.getCenterX(), item.getCenterY(), item.getFrameWidth(), item.getFrameHeight());
+          spriteFrame = item.getFrameOrder()[item.getCounter()];
+          ctxLayer1.drawImage(item.getImage(), spriteFrame * item.getFrameWidth(), 0,
+                         item.getFrameWidth(), item.getFrameHeight(), item.getCenterX(),
+                         item.getCenterY(), item.getFrameWidth(), item.getFrameHeight());
+
+          if(Engine.getCurrentFrame() % item.getFrameStep() == 0) {
+               item.setCounter(item.getCounter() + 1);
+          }
+
+          if(item.getCounter() >= item.getFrameOrder().length) {
+               item.setCounter(0);
+               item.setCurrentlyAnimating(false);
+          }
+     }
+
+     function itemAnimationHandler() {
+          for(item of itemList) {
+               if(item.getCurrentlyAnimating() == true) {
+                    itemNextFrame(item);
+               }
+
+               if(item.getCurrentlyAnimating() == false) {
+                    placeItem(item);
+                    item.setDelayCounter(item.getDelayCounter() + 1);
+
+                    if(item.getDelayCounter() > item.getDelay()) {
+                         item.setCurrentlyAnimating(true);
+                         item.setDelayCounter(item.getFrameStep() * item.getFrameOrder().length);
+                    }
+               }
           }
      }
 
@@ -232,7 +299,7 @@ var Display = (function () {
      }
      function furnitureInteract(furniture) {
           ctxLayer2.drawImage(furniture.getiImage(), 0, 0, furniture.getiImageWidth(),
-                                   furniture.getiImageHeight(), 200, window.scrollY + 50, furniture.getiImageWidth(),
+                                   furniture.getiImageHeight(), 200, window.scrollY + 250, furniture.getiImageWidth(),
                                    furniture.getiImageHeight());
      }
 
@@ -254,16 +321,19 @@ var Display = (function () {
           getCanvasWidth : getCanvasWidth,
           getCanvasHeight : getCanvasHeight,
           furnitureAnimationHandler : furnitureAnimationHandler,
+          itemAnimationHandler : itemAnimationHandler,
           placeAllDoors : placeAllDoors,
           teleportPlayer : teleportPlayer,
           scrollMaster : scrollMaster,
           getPlayerCentered : getPlayerCentered,
           setPlayerCentered : setPlayerCentered,
           furnitureInteract : furnitureInteract,
+          showInvItems : showInvItems,
           buildAllWalls : buildAllWalls,
           writeWords : writeWords,
           drawWord : drawWord,
           wordsHandler : wordsHandler,
-          resetText : resetText
+          resetText : resetText,
+          setBackground : setBackground
      }
 }());

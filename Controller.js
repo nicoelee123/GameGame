@@ -193,7 +193,45 @@ var Controller = (function() {
           }
 
           if(furnitureCount == furnitureList.length) {
-               return false;
+               return null;
+          }
+     }
+
+     function itemInteractTester() {
+          let itemCount = 0;
+          for(item of itemList) {
+
+               if(Player.getInteract()) {
+
+                    //from the top
+                    if((Game.itemZone(item) == "TOP-ZONE") && Player.getFacingDirection() == "DOWN")  {
+
+                         return item;
+                    }
+                    //from the bottom
+                    else if((Game.itemZone(item) == "BOTTOM-ZONE") && Player.getFacingDirection() == "UP") {
+                         return item;
+
+                    }
+                    //from the left
+                    else if((Game.itemZone(item) == "LEFT-ZONE") && Player.getFacingDirection() == "RIGHT")  {
+                         return item;
+
+                    }
+                    //from the right
+                    else if((Game.itemZone(item) == "RIGHT-ZONE") && Player.getFacingDirection() == "LEFT")  {
+                         return item;
+
+                    }
+                    //if not in any zone
+                    else if(Game.itemZone(item) == null) {
+                         itemCount++;
+                    }
+               }
+          }
+
+          if(itemCount == itemList.length) {
+               return null;
           }
      }
 
@@ -203,12 +241,14 @@ var Controller = (function() {
 
      function startButtonHandler() {
           Game.setMode("Game");
+          Game.setLevel(1);
      }
 
      return {
           playerMovementHandler : playerMovementHandler,
           playerSpriteHandler : playerSpriteHandler,
           furnitureInteractTester : furnitureInteractTester,
+          itemInteractTester : itemInteractTester,
           mouseWheelChecker : mouseWheelChecker,
           startButtonHandler : startButtonHandler
      }

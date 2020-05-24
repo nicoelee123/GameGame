@@ -1,10 +1,8 @@
-Furniture = function(imgName, iImageName, frameWidth, frameHeight, room, centerX, centerY, scale) {
+Furniture = function(imgName, iImageName, frameWidth, frameHeight, centerX, centerY, scale) {
      this.image = new Image();
      this.image.src = imgName;
      this.imageWidth = 0;
      this.imageHeight = 0;
-
-     this.room = room;
 
      this.iImage = new Image();
      this.iImage.src = iImageName;

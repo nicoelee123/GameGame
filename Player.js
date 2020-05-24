@@ -1,7 +1,7 @@
 
 var Player = (function() {
      centerX = 0;
-     centerY = 0;
+     centerY = 1000;
      frameWidth = 0;
      frameHeight = 0;
      image = new Image();
