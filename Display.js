@@ -39,13 +39,15 @@ var Display = (function () {
                     continue;
                } else {
                     currentItem = itemsDict[key];
-                    document.getElementsByClassName("item")[key-1].style.backgroundImage = "url(" + currentItem.getInvImg().src + ")";
+                    if(!currentItem.getInvCurrentlyAnimating()) {
+                         document.getElementsByClassName("item")[key-1].firstChild.src = currentItem.getInvImg().src;
+                    }
                }
           }
      }
 
                /* =============================
-                    BASE LAYER
+                    BASE LAYER ZERO
                ============================= */
 
      canvasFloor = document.getElementById("floor");
@@ -138,6 +140,23 @@ var Display = (function () {
                          item.setCurrentlyAnimating(true);
                          item.setDelayCounter(item.getFrameStep() * item.getFrameOrder().length);
                     }
+               }
+          }
+          for(key in Game.getInventoryTracker()) {
+               dict = Game.getInventoryTracker();
+               currentItem = dict[key];
+               if(currentItem != null) {
+                    if(currentItem.getInvCurrentlyAnimating() == true) {
+                         currentItem.setInvCounter(item.getInvCounter() + 1);
+
+                         if(currentItem.getInvCounter() > currentItem.getInvTotalFrames()) {
+
+                              currentItem.setInvCounter(0);
+                              currentItem.setInvCurrentlyAnimating(false);
+                         }
+                    }
+               } else {
+                    continue;
                }
           }
      }

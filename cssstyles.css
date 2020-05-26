@@ -9,7 +9,7 @@ html {
 }
 
 body {
-     background-image: url("darkforest.png");
+     background-image: url("pixels/darkforest.png");
      background-repeat: no-repeat;
      background-attachment: fixed;
      background-size: cover;
@@ -20,6 +20,7 @@ body {
      position: absolute;
      left: 50%;
      margin-left: -300px;
+     z-index: 0;
 }
 
 #layer1 {
@@ -156,4 +157,6 @@ body {
 
 .selected {
      background: #898D8F;
+     background-repeat: no-repeat;
+     background-position: center;
 }

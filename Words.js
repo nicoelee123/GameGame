@@ -3,7 +3,7 @@ var Words = (function(){
      wordCounter = 0;
      tempWords = "";
      let image = new Image();
-     image.src = "textBox.png"
+     image.src = "pixels/textBox.png"
 
      printing = true;
 

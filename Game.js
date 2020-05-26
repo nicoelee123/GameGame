@@ -82,6 +82,8 @@ var Game = (function() {
           Level = int;
      }
 
+     // HANDLES WHICH ITEMS ARE SELECTED FROM INVENTORY
+
      function inventoryHandler() {
           $(".item").click(function() {
                currentItem = $(this).attr("data-boxNumber");
@@ -93,6 +95,16 @@ var Game = (function() {
                     list.push(currentItem);
                }
                $(this).toggleClass("selected");
+          })
+
+          $(".item").mouseenter(function() {
+               boxNumber = Number($(this).attr("data-boxNumber"));
+               dict = inventoryTracker;
+               hoveredItem = dict[boxNumber];
+               if(hoveredItem != null) {
+                    hoveredItem.setInvCurrentlyAnimating(true);
+                    $(this).children().attr("src", hoveredItem.getGifSource());
+               }
           })
      }
 
@@ -139,7 +151,7 @@ var Game = (function() {
      /*
           TESTS WHETHER THE PLAYER IS COLLIDING WITH A SPECIFIED FURNITURE OR NOT
 
-          @param furniture the furniture we're testing
+          @param obstacle the furniture we're testing
           @return true or false depending on whether the player is colliding with said furniture or not
      */
      function detectPlayerCollision(obstacle) {
