@@ -1,22 +1,23 @@
-var Game = (function() {
+"use strict"
+let Game = (function() {
 
      /*
           INITIALIZING GAME VARIABLES
      */
 ///////////////////////////////////////////////////////////////////////////////
 
-     Mode = "StartScreen";
-     Level = 0;
+     let Mode = "StartScreen";
+     let Level = 0;
 
-     furnitureList = [];
-     doorList = [];
-     wallList = [];
-     selectedItems = [];
-     itemList = [];
+     let furnitureList = [];
+     let doorList = [];
+     let wallList = [];
+     let selectedItems = [];
+     let itemList = [];
 
-     dialogue = [];
+     let dialogue = [];
 
-     inventoryTracker = {
+     let inventoryTracker = {
           1: null,
           2: null,
           3: null,
@@ -59,7 +60,7 @@ var Game = (function() {
                          88888888888888888888 */
 
      function showMainStage() {
-          fadeInTime = 2000;
+          let fadeInTime = 2000;
           $("#floor").fadeIn(fadeInTime);
           $("#layer1").fadeIn(fadeInTime);
           $("#layer2").fadeIn(fadeInTime);
@@ -86,10 +87,10 @@ var Game = (function() {
 
      function inventoryHandler() {
           $(".item").click(function() {
-               currentItem = $(this).attr("data-boxNumber");
-               list = getSelectedItems();
+               let currentItem = $(this).attr("data-boxNumber");
+               let list = getSelectedItems();
                if(list.includes(currentItem)) {
-                    index = list.indexOf(currentItem);
+                    let index = list.indexOf(currentItem);
                     list.splice(index, 1);
                } else {
                     list.push(currentItem);
@@ -98,9 +99,9 @@ var Game = (function() {
           })
 
           $(".item").mouseenter(function() {
-               boxNumber = Number($(this).attr("data-boxNumber"));
-               dict = inventoryTracker;
-               hoveredItem = dict[boxNumber];
+               let boxNumber = Number($(this).attr("data-boxNumber"));
+               let dict = inventoryTracker;
+               let hoveredItem = dict[boxNumber];
                if(hoveredItem != null) {
                     hoveredItem.setInvCurrentlyAnimating(true);
                     $(this).children().attr("src", hoveredItem.getGifSource());
@@ -116,7 +117,7 @@ var Game = (function() {
 
      function ModeListener() {
           if(Mode == "Game") {
-               Sound.getSound(bgMusic1).play();
+               Sound.getSound()[0].play();
                $("#startBtn").fadeOut(200);
                $('#startScreen1').fadeOut(1000);
                $('#startScreen2').fadeOut(1000);
@@ -205,14 +206,14 @@ var Game = (function() {
           /*
                Furniture collision
           */
-          for(frnt of furnitureList) {
+          for(let frnt of furnitureList) {
                if(detectPlayerCollision(frnt)) {
                     Player.setCenterX(Player.getPrevX());
                     Player.setCenterY(Player.getPrevY());
                }
           }
           // Door collision
-          for(dr of doorList) {
+          for(let dr of doorList) {
                if(detectPlayerCollision(dr)) {
                     Player.setCenterX(Player.getPrevX());
                     Player.setCenterY(Player.getPrevY());
@@ -220,7 +221,7 @@ var Game = (function() {
           }
 
           // Wall collision
-          for(wall of wallList) {
+          for(let wall of wallList) {
                if(detectPlayerCollision(wall)) {
                     Player.setCenterX(Player.getPrevX());
                     Player.setCenterY(Player.getPrevY());
@@ -228,7 +229,7 @@ var Game = (function() {
           }
 
           // Item collision
-          for(item of itemList) {
+          for(let item of itemList) {
                if(detectPlayerCollision(item)) {
                     Player.setCenterX(Player.getPrevX());
                     Player.setCenterY(Player.getPrevY());
@@ -344,14 +345,14 @@ var Game = (function() {
           } else if(itemList.includes(Player.getCurrentlyInteractingWith())) {
                console.log("item");
                //deletes item from screen
-               currentItem = Player.getCurrentlyInteractingWith();
+               let currentItem = Player.getCurrentlyInteractingWith();
                itemList.splice(itemList.indexOf(currentItem.getImage().src));
 
                //places into inventory
-               emptySlot = 1;
-               for(key in inventoryTracker) {
+               let emptySlot = 1;
+               for(let key in inventoryTracker) {
                     if (inventoryTracker[key] == null) {
-                         emptySlot = key;
+                         let emptySlot = key;
                          break;
                     }
                }
@@ -379,6 +380,38 @@ var Game = (function() {
           selectedItems = array;
      }
 
+     function getFurnitureList() {
+          return furnitureList;
+     }
+
+     function getItemList() {
+          return itemList;
+     }
+
+     function getDoorList() {
+          return doorList;
+     }
+
+     function getWallList() {
+          return wallList;
+     }
+
+     function setFurnitureList(list) {
+          furnitureList = list;
+     }
+
+     function setItemList(list) {
+          itemList = list;
+     }
+
+     function setDoorList(list) {
+          doorList = list;
+     }
+
+     function setWallList(list) {
+          wallList = list;
+     }
+
 
                               /* PUBLIC METHODS */
      return {
@@ -398,6 +431,14 @@ var Game = (function() {
           inventoryHandler : inventoryHandler,
           getSelectedItems : getSelectedItems,
           setSelectedItems : setSelectedItems,
+          getFurnitureList : getFurnitureList,
+          getItemList : getItemList,
+          getDoorList : getDoorList,
+          getWallList : getWallList,
+          setFurnitureList : setFurnitureList,
+          setItemList : setItemList,
+          setDoorList : setDoorList,
+          setWallList : setWallList,
           Play : Play
      }
 }());

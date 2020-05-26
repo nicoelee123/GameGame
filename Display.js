@@ -1,29 +1,20 @@
-var Display = (function () {
+"use strict"
+let Display = (function () {
 
 
                /* =============================
                          CLIENT WINDOW
                ==============================*/
 
-     viewportHeight = window.innerHeight;
-     viewportWidth = window.innerWidth;
-
-     playerCentered = true;
+     let viewportHeight = window.innerHeight;
+     let viewportWidth = window.innerWidth;
 
                /*8888888888888888888888888888888
                          METHODS
                8888888888888888888888888888888*/
 
-     function getPlayerCentered() {
-          return playerCentered;
-     }
-
-     function setPlayerCentered(boolean) {
-          playerCentered = boolean;
-     }
-
      function scrollMaster() {
-          if(playerCentered == true) {
+          if(Player.getCentered() == true) {
                scrollToPlayer();
           }
      }
@@ -33,12 +24,12 @@ var Display = (function () {
      }
 
      function showInvItems() {
-          itemsDict = Game.getInventoryTracker();
-          for(key in itemsDict) {
+          let itemsDict = Game.getInventoryTracker();
+          for(let key in itemsDict) {
                if(itemsDict[key] == null) {
                     continue;
                } else {
-                    currentItem = itemsDict[key];
+                    let currentItem = itemsDict[key];
                     if(!currentItem.getInvCurrentlyAnimating()) {
                          document.getElementsByClassName("item")[key-1].firstChild.src = currentItem.getInvImg().src;
                     }
@@ -50,11 +41,11 @@ var Display = (function () {
                     BASE LAYER ZERO
                ============================= */
 
-     canvasFloor = document.getElementById("floor");
-     ctxFloor = canvasFloor.getContext("2d");
+     let canvasFloor = document.getElementById("floor");
+     let ctxFloor = canvasFloor.getContext("2d");
 
-     canvasWidth = 600;
-     canvasHeight = 1000;
+     let canvasWidth = 600;
+     let canvasHeight = 1000;
 
      function setBackground(imgName) {
           document.getElementById("floor").style.backgroundImage = "url(" + imgName + ")";
@@ -66,20 +57,17 @@ var Display = (function () {
                =================================*/
 
 
-     canvasLayer1 = document.getElementById("layer1");
-     ctxLayer1 = canvasLayer1.getContext("2d");
-
-     counter = 0;
+     let canvasLayer1 = document.getElementById("layer1");
+     let ctxLayer1 = canvasLayer1.getContext("2d");
 
                     /*88888888888888888888
                          METHODS
                     88888888888888888888*/
 
      function drawPlayer () {
+          let colRow = Controller.playerSpriteHandler();
 
-          Controller.playerSpriteHandler();
-
-          ctxLayer1.drawImage(Player.getImage(), col * Player.getFrameWidth(), row * Player.getFrameHeight(),
+          ctxLayer1.drawImage(Player.getImage(), colRow[0] * Player.getFrameWidth(), colRow[1] * Player.getFrameHeight(),
                          Player.getFrameWidth(), Player.getFrameHeight(), Player.getCenterX(), Player.getCenterY(),
                          Player.getWidth(), Player.getHeight());
      }
@@ -97,7 +85,7 @@ var Display = (function () {
      }
 
      function wipeAll() {
-          for(i = 0; i < 4; i++) {
+          for(let i = 0; i < 4; i++) {
                wipe(i);
           }
      }
@@ -108,10 +96,10 @@ var Display = (function () {
                          item.getFrameWidth(), item.getFrameHeight());
      }
 
-     function itemNextFrame() {
+     function itemNextFrame(item) {
 
           ctxLayer1.clearRect(item.getCenterX(), item.getCenterY(), item.getFrameWidth(), item.getFrameHeight());
-          spriteFrame = item.getFrameOrder()[item.getCounter()];
+          let spriteFrame = item.getFrameOrder()[item.getCounter()];
           ctxLayer1.drawImage(item.getImage(), spriteFrame * item.getFrameWidth(), 0,
                          item.getFrameWidth(), item.getFrameHeight(), item.getCenterX(),
                          item.getCenterY(), item.getFrameWidth(), item.getFrameHeight());
@@ -127,7 +115,7 @@ var Display = (function () {
      }
 
      function itemAnimationHandler() {
-          for(item of itemList) {
+          for(let item of Game.getItemList()) {
                if(item.getCurrentlyAnimating() == true) {
                     itemNextFrame(item);
                }
@@ -142,12 +130,12 @@ var Display = (function () {
                     }
                }
           }
-          for(key in Game.getInventoryTracker()) {
-               dict = Game.getInventoryTracker();
-               currentItem = dict[key];
+          for(let key in Game.getInventoryTracker()) {
+               let dict = Game.getInventoryTracker();
+               let currentItem = dict[key];
                if(currentItem != null) {
                     if(currentItem.getInvCurrentlyAnimating() == true) {
-                         currentItem.setInvCounter(item.getInvCounter() + 1);
+                         currentItem.setInvCounter(currentItem.getInvCounter() + 1);
 
                          if(currentItem.getInvCounter() > currentItem.getInvTotalFrames()) {
 
@@ -167,10 +155,10 @@ var Display = (function () {
                          furniture.getWidth(), furniture.getHeight());
      }
 
-     function furnitureNextFrame() {
+     function furnitureNextFrame(furniture) {
 
           ctxLayer1.clearRect(furniture.getCenterX(), furniture.getCenterY(), furniture.getWidth(), furniture.getHeight());
-          spriteFrame = furniture.getFrameOrder()[furniture.getCounter()];
+          let spriteFrame = furniture.getFrameOrder()[furniture.getCounter()];
           ctxLayer1.drawImage(furniture.getImage(), spriteFrame * furniture.getFrameWidth(), 0,
                          furniture.getFrameWidth(), furniture.getFrameHeight(), furniture.getCenterX(),
                          furniture.getCenterY(), furniture.getWidth(), furniture.getHeight());
@@ -186,7 +174,7 @@ var Display = (function () {
      }
 
      function furnitureAnimationHandler() {
-          for(furniture of furnitureList) {
+          for(let furniture of Game.getFurnitureList()) {
                if(furniture.getCurrentlyAnimating() == true) {
                     furnitureNextFrame(furniture);
                }
@@ -209,7 +197,7 @@ var Display = (function () {
      }
 
      function placeAllDoors() {
-          for(door of doorList) {
+          for(door of Game.getDoorList()) {
                drawDoor(door);
           }
      }
@@ -233,7 +221,7 @@ var Display = (function () {
      }
 
      function buildAllWalls() {
-          for(wall of wallList) {
+          for(wall of Game.getWallList()) {
                drawWall(wall);
           }
      }
@@ -242,8 +230,8 @@ var Display = (function () {
                          SECOND LAYER
                     =============================*/
 
-     canvasLayer2 = document.getElementById("layer2");
-     ctxLayer2 = canvasLayer2.getContext("2d");
+     let canvasLayer2 = document.getElementById("layer2");
+     let ctxLayer2 = canvasLayer2.getContext("2d");
 
 //                       88888888888888888888888888
 //                            METHODS
@@ -251,25 +239,25 @@ var Display = (function () {
 
      function resetText() {
           console.log("reset");
-          newWords = document.createElement("div");
-          newNode = document.createTextNode("");
+          let newWords = document.createElement("div");
+          let newNode = document.createTextNode("");
           newWords.appendChild(newNode);
           newWords.id = "words";
 
-          parent = document.getElementById("textBox");
-          child = document.getElementById("words");
+          let parent = document.getElementById("textBox");
+          let child = document.getElementById("words");
 
           parent.replaceChild(newWords, child);
      }
 
      function drawWord(string) {
-          newWords = document.createElement("div");
-          newNode = document.createTextNode(string);
+          let newWords = document.createElement("div");
+          let newNode = document.createTextNode(string);
           newWords.appendChild(newNode);
           newWords.id = "words";
 
-          parent = document.getElementById("textBox");
-          child = document.getElementById("words");
+          let parent = document.getElementById("textBox");
+          let child = document.getElementById("words");
 
           parent.replaceChild(newWords, child);
      }
@@ -302,7 +290,7 @@ var Display = (function () {
      }
 
      function wordsHandler() {
-          dialogueList = Game.getDialogue();
+          let dialogueList = Game.getDialogue();
           if(Words.getPrinting() == false && Words.getNext() == true) {
                resetText();
                Words.setTempWords("");
@@ -326,8 +314,23 @@ var Display = (function () {
                          THIRD LAYER
                     ==================================*/
 
-     canvasLayer3 = document.getElementById("layer3");
-     ctxLayer3 = canvasLayer3.getContext("2d");
+     let canvasLayer3 = document.getElementById("layer3");
+     let ctxLayer3 = canvasLayer3.getContext("2d");
+
+     /*======================
+     CANVAS ACCESS FUNCTIONS
+     =======================*/
+
+     let canvasList = [canvasFloor, canvasLayer1, canvasLayer2, canvasLayer3];
+     let ctxList = [ctxFloor, ctxLayer1, ctxLayer2, ctxLayer3];
+
+     function getCanvas() {
+          return canvasList;
+     }
+
+     function getCtx() {
+          return ctxList;
+     }
 
      /*
           PUBLIC METHODS
@@ -344,8 +347,6 @@ var Display = (function () {
           placeAllDoors : placeAllDoors,
           teleportPlayer : teleportPlayer,
           scrollMaster : scrollMaster,
-          getPlayerCentered : getPlayerCentered,
-          setPlayerCentered : setPlayerCentered,
           furnitureInteract : furnitureInteract,
           showInvItems : showInvItems,
           buildAllWalls : buildAllWalls,
@@ -353,6 +354,8 @@ var Display = (function () {
           drawWord : drawWord,
           wordsHandler : wordsHandler,
           resetText : resetText,
-          setBackground : setBackground
+          setBackground : setBackground,
+          getCanvas : getCanvas,
+          getCtx : getCtx
      }
 }());

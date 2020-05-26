@@ -1,12 +1,10 @@
-Item = function(imgName, invImg, gifSource, centerX, centerY, invScale) {
+"use strict"
+let Item = function(imgName, invImg, gifSource, centerX, centerY, invScale) {
 
      this.image = new Image();
      this.image.src = imgName;
 
      this.selected = false;
-
-     this.width = frameWidth;
-     this.height = frameHeight;
 
      this.invImg = new Image();
      this.invImg.src = invImg;
@@ -20,12 +18,14 @@ Item = function(imgName, invImg, gifSource, centerX, centerY, invScale) {
 
      this.frameWidth = 0;
      this.frameHeight = 0;
+     this.width = 0;
+     this.height = 0;
 
      this.iFrameWidth = 0;
      this.iFrameHeight = 0;
 
-     this.invWidth = invScale * frameWidth;
-     this.invHeight = invScale * frameHeight;
+     this.invWidth = 0;
+     this.invHeight = 0;
 
      this.frameOrder = [];
 
@@ -66,6 +66,8 @@ Item = function(imgName, invImg, gifSource, centerX, centerY, invScale) {
           this.frameHeight = fHeight;
           this.iFrameWidth = iFWidth;
           this.iFrameHeight = iFHeight;
+          this.invWidth = invScale * this.frameWidth;
+          this.invHeight = invScale * this.frameHeight;
      }
 
      this.getCounter = function() {
@@ -113,7 +115,7 @@ Item = function(imgName, invImg, gifSource, centerX, centerY, invScale) {
      }
 
      this.setAnimation = function(list, frameStep, delay, invFrames) {
-          for(num of list) {
+          for(let num of list) {
                this.frameOrder.push(num);
           }
           this.frameStep = frameStep;

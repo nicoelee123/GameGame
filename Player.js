@@ -1,27 +1,47 @@
+"use strict"
+let Player = (function() {
+     let centerX = 0;
+     let centerY = 1000;
+     let frameWidth = 0;
+     let frameHeight = 0;
+     let image = new Image();
+     let facingDirection = "DOWN";
 
-var Player = (function() {
-     centerX = 0;
-     centerY = 1000;
-     frameWidth = 0;
-     frameHeight = 0;
-     image = new Image();
-     facingDirection = "DOWN";
+     let interact = true;
 
-     interact = true;
+     let items = [];
 
-     items = [];
+     let currentlyInteractingWith = null;
 
-     currentlyInteractingWith = null;
+     let speed = 2;
+     let width = 0;
+     let height = 0;
+     let prevX = 0;
+     let prevY = 0;
 
-     speed = 2;
-     width = 0;
-     height = 0;
-     prevX = 0;
-     prevY = 0;
+     let controls = true;
 
-     controls = true;
+     let movement = "STOP";
 
-     movement = "STOP";
+     let counter = 0;
+
+     let centered = true;
+
+     function getCentered() {
+          return centered;
+     }
+
+     function setCentered(boolean) {
+          centered = boolean;
+     }
+
+     function getCounter() {
+          return counter;
+     }
+
+     function setCounter(int) {
+          counter = int;
+     }
 
      function getItems() {
           return items;
@@ -174,7 +194,11 @@ var Player = (function() {
           getCurrentlyInteractingWith : getCurrentlyInteractingWith,
           setCurrentlyInteractingWith : setCurrentlyInteractingWith,
           getItems : getItems,
-          setItems : setItems
+          setItems : setItems,
+          getCounter : getCounter,
+          setCounter : setCounter,
+          getCentered : getCentered,
+          setCentered : setCentered
      }
 
 }());

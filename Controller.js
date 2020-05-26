@@ -1,4 +1,5 @@
-var Controller = (function() {
+"use strict"
+let Controller = (function() {
      document.addEventListener("keydown", keyboardDownHandler, false);
      document.addEventListener("keyup", keyboardUpHandler, false);
 
@@ -7,11 +8,11 @@ var Controller = (function() {
 
      document.getElementById("startBtn").addEventListener("mouseup", startButtonHandler, false);
 
-     mouseClickX = 0;
-     mouseClickY = 0;
+     let mouseClickX = 0;
+     let mouseClickY = 0;
 
 
-     movementQueue = "STOP";
+     let movementQueue = "STOP";
 
      function keyboardDownHandler(event) {
           if(event.key == "w") {
@@ -47,7 +48,7 @@ var Controller = (function() {
           }
           if(event.keyCode == 32) {
                event.preventDefault();
-               Display.setPlayerCentered(true);
+               Player.setCentered(true);
           }
      }
 
@@ -75,7 +76,7 @@ var Controller = (function() {
 
           if(event.keyCode == 32) {
                event.preventDefault();
-               Display.setPlayerCentered(true);
+               Player.setCentered(true);
           }
      }
 
@@ -98,18 +99,17 @@ var Controller = (function() {
      }
 
      function playerSpriteHandler() {
-          columns = [0, 1, 0, 2];
-          framesPerStep = 8;
-          row = 0;
-
-          col = columns[counter];
+          let columns = [0, 1, 0, 2];
+          let framesPerStep = 8;
+          let row = 0;
+          let col = columns[Player.getCounter()];
 
           if(Engine.getCurrentFrame() % framesPerStep == 0) {
-               counter++;
+               Player.setCounter(Player.getCounter() + 1);
           }
 
-          if(counter > 3) {
-               counter = 0;
+          if(Player.getCounter() > 3) {
+               Player.setCounter(0);
           }
 
           if(Player.getMovement() == "UP") {
@@ -143,25 +143,28 @@ var Controller = (function() {
                     row = 0;
                }
           }
+
+          let output = [col, row];
+          return output;
      }
 
      function mouseUpHandler(event) {
           if (event.button == 0) {
                if($('#layer1').is(':visible')) {
-                    rect = canvasLayer1.getBoundingClientRect();
+                    var rect = Display.getCanvas()[1].getBoundingClientRect();
                }
                else if($('#startScreen1').is(':visible')) {
-                    rect = startScreen1.getBoundingClientRect();
+                    var rect = startScreen1.getBoundingClientRect();
                }
 
-               mouseClickX = Math.floor(event.clientX - rect.left);
-               mouseClickY = Math.floor(event.clientY - rect.top);
+               let mouseClickX = Math.floor(event.clientX - rect.left);
+               let mouseClickY = Math.floor(event.clientY - rect.top);
           }
      }
 
      function furnitureInteractTester() {
           let furnitureCount = 0;
-          for(furniture of furnitureList) {
+          for(let furniture of Game.getFurnitureList()) {
 
                if(Player.getInteract()) {
 
@@ -192,14 +195,14 @@ var Controller = (function() {
                }
           }
 
-          if(furnitureCount == furnitureList.length) {
+          if(furnitureCount == Game.getFurnitureList().length) {
                return null;
           }
      }
 
      function itemInteractTester() {
           let itemCount = 0;
-          for(item of itemList) {
+          for(let item of Game.getItemList()) {
 
                if(Player.getInteract()) {
 
@@ -230,13 +233,13 @@ var Controller = (function() {
                }
           }
 
-          if(itemCount == itemList.length) {
+          if(itemCount == Game.getItemList().length) {
                return null;
           }
      }
 
      function mouseWheelChecker(event) {
-          Display.setPlayerCentered(false);
+          Player.setCentered(false);
      }
 
      function startButtonHandler() {

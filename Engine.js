@@ -1,6 +1,7 @@
-var Engine = (function() {
+"use strict"
+let Engine = (function() {
 
-     currentFrame = 0;
+     let currentFrame = 0;
 
      function startClock() {
           currentFrame++;

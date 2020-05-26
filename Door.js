@@ -1,4 +1,5 @@
-Door = function(imageName, openImageName, width, height, posX, posY) {
+"use strict"
+let Door = function(imageName, openImageName, width, height, posX, posY) {
 
      this.image = new Image();
      this.image.src = imageName;

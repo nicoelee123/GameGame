@@ -1,4 +1,5 @@
-Wall = function(imgName, centX, centY, w, h) {
+"use strict"
+let Wall = function(imgName, centX, centY, w, h) {
      this.image = new Image();
      this.image.src = imgName;
 

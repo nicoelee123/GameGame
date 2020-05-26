@@ -1,4 +1,5 @@
-Furniture = function(imgName, iImageName, frameWidth, frameHeight, centerX, centerY, scale) {
+"use strict"
+let Furniture = function(imgName, iImageName, frameWidth, frameHeight, centerX, centerY, scale) {
      this.image = new Image();
      this.image.src = imgName;
      this.imageWidth = 0;
@@ -52,7 +53,7 @@ Furniture = function(imgName, iImageName, frameWidth, frameHeight, centerX, cent
      }
 
      this.setAnimation = function(list, frameStep, delay) {
-          for(num of list) {
+          for(let num of list) {
                this.frameOrder.push(num);
           }
           this.frameStep = frameStep;

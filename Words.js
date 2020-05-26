@@ -1,15 +1,16 @@
-var Words = (function(){
-     wordToPrint = "";
-     wordCounter = 0;
-     tempWords = "";
+"use strict"
+let Words = (function(){
+     let wordToPrint = "";
+     let wordCounter = 0;
+     let tempWords = "";
      let image = new Image();
      image.src = "pixels/textBox.png"
 
-     printing = true;
+     let printing = true;
 
-     skip = false;
+     let skip = false;
 
-     next = false;
+     let next = false;
 
      function getNext() {
           return next;
