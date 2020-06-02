@@ -83,18 +83,22 @@ let Controller = (function() {
      function playerMovementHandler() {
           if(Player.getMovement() == "UP") {
                Player.setCenterY(Player.getCenterY() - Player.getSpeed());
+               Sound.getSound()[1].play();
           }
 
           if(Player.getMovement() == "DOWN") {
                Player.setCenterY(Player.getCenterY() + Player.getSpeed());
+               Sound.getSound()[1].play();
           }
 
           if(Player.getMovement() == "LEFT") {
                Player.setCenterX(Player.getCenterX() - Player.getSpeed());
+               Sound.getSound()[1].play();
           }
 
           else if(Player.getMovement() == "RIGHT") {
                Player.setCenterX(Player.getCenterX() + Player.getSpeed());
+               Sound.getSound()[1].play();
           }
      }
 

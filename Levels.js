@@ -6,8 +6,8 @@ let Levels = (function(){
           return levelCounter;
      }
 
-     function setLevelCounter(level) {
-          levelCounter = level;
+     function setLevelCounter(int) {
+          levelCounter = int;
      }
 
      function One() {
@@ -16,7 +16,6 @@ let Levels = (function(){
           Player.setFrameDimensions(23, 50);
 
           Display.setBackground("pixels/BGoutside.png");
-          console.log("ran");
 
           //   Furniture initialize
           let Chest = new Furniture("pixels/chest.png", "pixels/chest.png", 186, 173, 50, 100, 0.2);

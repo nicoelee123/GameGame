@@ -6,6 +6,8 @@ let Display = (function () {
                          CLIENT WINDOW
                ==============================*/
 
+
+
      let viewportHeight = window.innerHeight;
      let viewportWidth = window.innerWidth;
 

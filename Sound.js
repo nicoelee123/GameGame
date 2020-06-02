@@ -1,11 +1,20 @@
 "use strict"
 let Sound = (function() {
 
-     let bgMusic1 = new Audio("sfx/bgMusic1.mp3");
-     bgMusic1.volume = 0.05;
-     bgMusic1.loop = true;
+     let outside = new Audio("sfx/outside.mp3");
+     outside.volume = 0.55;
+     outside.loop = true;
 
-     let sounds = [bgMusic1];
+     let footstep = new Audio("sfx/footstep.wav");
+     footstep.volume = 0.45;
+     footstep.loop = false;
+
+     let rain = new Audio("sfx/rain.wav");
+     rain.volume = 0.10;
+     rain.loop = true;
+
+
+     let sounds = [outside, footstep, rain];
 
      function getSound() {
           return sounds;
