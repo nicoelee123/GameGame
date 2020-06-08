@@ -7,6 +7,7 @@ let Game = (function() {
 ///////////////////////////////////////////////////////////////////////////////
 
      let Mode = "StartScreen";
+     let modeCounter = "";
      let Level = 0;
 
      let furnitureList = [];
@@ -116,22 +117,69 @@ let Game = (function() {
 //=================================================
 
      function ModeListener() {
-          if(Mode == "Game") {
-               showMainStage();
 
+          if(Mode == "Game") {
+               // Activate only one time
+               if(modeCounter != Mode) {
+                    $("#floor").show();
+                    $("#layer1").show();
+                    $("#layer2").show();
+                    $("#layer3").show();
+
+                    $("#mgLayer1").hide();
+                    $("#mgLayer2").hide();
+                    $("#mgLayer3").hide();
+
+                    console.log("mode = game");
+               }
+               // Looping
                Game.Play();
+
+               // Making sure it doesn't loop unnecessary components
+               modeCounter = "Game";
           }
           if(Mode == "StartScreen") {
-               $("#floor").hide();
-               $('#layer1').hide();
-               $('#layer2').hide();
-               $('#layer3').hide();
+               // Activate only one time
+               if(modeCounter != Mode) {
+                    $("#floor").hide();
+                    $('#layer1').hide();
+                    $('#layer2').hide();
+                    $('#layer3').hide();
 
+                    let time = 1300;
+                    $("#startScreen1").fadeIn(time);
+                    $("#startScreen2").fadeIn(time);
+                    $("#startBtn").fadeIn(time);
+
+                    console.log("mode = startscreen");
+               }
+               // Looping
                StartScreen.StartScreen();
+
+               // Making sure it doesn't loop unnecessary components
+               modeCounter = "StartScreen";
           }
           if(Mode == "Furniture") {
+               // Activate only one time
+               if(modeCounter != Mode) {
+                    // Hiding mainstage
+                    $("#floor").hide();
+                    $('#layer1').hide();
+                    $('#layer2').hide();
+                    $('#layer3').hide();
+
+                    // Showing Minigame
+                    $("#mgLayer1").show();
+                    $("#mgLayer2").show();
+                    $("#mgLayer3").show();
+
+                    console.log("mode = furniture");
+               }
+               // Looping
                Minigames.minigameHandler();
-               console.log("trying");
+
+               // Making sure it doesn't loop unnecessary components
+               modeCounter = "Furniture";
           }
      }
 

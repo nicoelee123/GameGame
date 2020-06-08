@@ -82,6 +82,7 @@ body {
      left: 50%;
      margin-left: -300px;
      display: none;
+     background: blue;
 }
 
 /* THIRD LAYER */
@@ -91,6 +92,7 @@ body {
      left: 50%;
      margin-left: -300px;
      display: none;
+     background: blue;
 }
 
 #startBtn {

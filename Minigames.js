@@ -1,27 +1,32 @@
 "use strict"
 let Minigames = (function() {
 
+     let mgLayer1 = document.getElementById("mgLayer1");
+     let mgLayer1Ctx = mgLayer1.getContext("2d");
+
+     let mgLayer2 = document.getElementById("mgLayer2");
+     let mgLayer2Ctx = mgLayer2.getContext("2d");
+
      function minigameHandler() {
-          // Hiding mainstage
-          $("#floor").hide();
-          $('#layer1').hide();
-          $('#layer2').hide();
-          $('#layer3').hide();
-
-          // Showing Minigame
-          $("#mgLayer1").show();
-          $("#mgLayer2").show();
-          $("#mgLayer3").show();
-
           let furniture = Player.getCurrentlyInteractingWith();
 
           //Chest
           if(furniture == Game.getFurnitureList()[0]) {
                console.log("chest minigame activated");
           }
+
+          if(Player.getInteract() == false) {
+               Game.setMode("Game");
+          }
+     }
+
+     function getCanvas() {
+          let array = [mgLayer1, mgLayer2];
+          return array;
      }
 
      return {
-          minigameHandler : minigameHandler
+          minigameHandler : minigameHandler,
+          getCanvas : getCanvas
      }
 }());

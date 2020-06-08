@@ -42,7 +42,6 @@ let Controller = (function() {
                if(Words.getPrinting() == true) {
                     Words.setSkip(true);
                } else if(Words.getPrinting() == false) {
-                    console.log("next");
                     Words.setNext(true);
                }
           }
@@ -155,10 +154,13 @@ let Controller = (function() {
      function mouseUpHandler(event) {
           if (event.button == 0) {
                if($('#layer1').is(':visible')) {
-                    var rect = Display.getCanvas()[1].getBoundingClientRect();
+                    var rect = Display.getCanvas()[0].getBoundingClientRect();
                }
                else if($('#startScreen1').is(':visible')) {
-                    var rect = startScreen1.getBoundingClientRect();
+                    var rect = StartScreen.getCanvas()[0].getBoundingClientRect();
+               }
+               else if($("#mgLayer1").is(":visible")) {
+                    var rect = Minigames.getCanvas()[0].getBoundingClientRect();
                }
 
                let mouseClickX = Math.floor(event.clientX - rect.left);

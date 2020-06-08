@@ -240,7 +240,6 @@ let Display = (function () {
 //                       88888888888888888888888888
 
      function resetText() {
-          console.log("reset");
           let newWords = document.createElement("div");
           let newNode = document.createTextNode("");
           newWords.appendChild(newNode);
@@ -266,7 +265,6 @@ let Display = (function () {
 
      function writeWords(words) {
           if(Engine.getCurrentFrame() % 2 == 0 && Words.getPrinting() == true) {
-               console.log("adding letter");
                Words.setTempWords(Words.getTempWords() + words[Words.getCounter()]);
                drawWord(Words.getTempWords());
                Words.setCounter(Words.getCounter() + 1);

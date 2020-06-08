@@ -13,24 +13,21 @@ let StartScreen = (function(){
                          MAIN START SCREEN LOOP
 
                     ========================================*/
-     function startScreenLoop() {
-          window.requestAnimationFrame(startScreenLoop);
-     }
 
           /*8888888888888888888888888888888
                     METHODS
           8888888888888888888888888888888*/
 
+     function getCanvas() {
+          let canvasArray = [startScreen1, startScreen2];
+          return canvasArray;
+     }
      function StartScreen() {
-          let time = 1300;
-          $("#startScreen1").fadeIn(time);
-          $("#startScreen2").fadeIn(time);
-          $("#startBtn").fadeIn(time);
 
-          startScreenLoop();
      }
 
      return {
-          StartScreen : StartScreen
+          StartScreen : StartScreen,
+          getCanvas : getCanvas
      }
 }())
