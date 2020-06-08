@@ -117,24 +117,21 @@ let Game = (function() {
 
      function ModeListener() {
           if(Mode == "Game") {
-               Sound.getSound()[0].play();
-               Sound.getSound()[2].play();
-               $("#startBtn").fadeOut(200);
-               $('#startScreen1').fadeOut(1000);
-               $('#startScreen2').fadeOut(1000);
-               $("#textBox").show(500);
-               $("#faceContainer").slideDown(1500);
-               $("#inventoryContainer").slideDown(2000);
                showMainStage();
 
                Game.Play();
           }
           if(Mode == "StartScreen") {
+               $("#floor").hide();
                $('#layer1').hide();
                $('#layer2').hide();
                $('#layer3').hide();
 
                StartScreen.StartScreen();
+          }
+          if(Mode == "Furniture") {
+               Minigames.minigameHandler();
+               console.log("trying");
           }
      }
 
@@ -342,6 +339,7 @@ let Game = (function() {
           if(furnitureList.includes(Player.getCurrentlyInteractingWith())) {
 
                Display.furnitureInteract(Player.getCurrentlyInteractingWith());
+               setMode("Furniture");
 
           } else if(itemList.includes(Player.getCurrentlyInteractingWith())) {
                console.log("item");

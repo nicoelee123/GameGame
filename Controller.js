@@ -248,6 +248,14 @@ let Controller = (function() {
 
      function startButtonHandler() {
           Game.setMode("Game");
+          Sound.getSound()[0].play();
+          Sound.getSound()[2].play();
+          $("#startBtn").fadeOut(200);
+          $('#startScreen1').fadeOut(1000);
+          $('#startScreen2').fadeOut(1000);
+          $("#textBox").show(500);
+          $("#faceContainer").slideDown(1500);
+          $("#inventoryContainer").slideDown(2000);
           Game.setLevel(1);
      }
 

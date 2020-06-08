@@ -66,6 +66,33 @@ body {
      margin-left: -300px;
 }
 
+#mgLayer1 {
+     z-index: 1;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+     background: blue;
+}
+
+/* SECOND LAYER */
+#mgLayer2 {
+     z-index: 2;
+     position: absolute;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+}
+
+/* THIRD LAYER */
+#mgLayer3 {
+     z-index: 3;
+     position: relative;
+     left: 50%;
+     margin-left: -300px;
+     display: none;
+}
+
 #startBtn {
 	background:linear-gradient(to bottom, #44c767 5%, #a0bd2a 100%);
 	background-color:#44c767;
